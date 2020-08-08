@@ -40,7 +40,7 @@ const PublicNavbar = () => {
   return (
     <Navbar bg='light' expand='lg'>
       <Navbar.Brand as={Link} to="/" className="mr-auto">
-        <img src={''} alt="CoderSchool" />
+        <img src= "logo-12.png" width="100px" height ="100px" alt="CoderSchool" />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
