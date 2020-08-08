@@ -1,53 +1,61 @@
-import React, { useState } from 'react'
-import { Redirect, Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
-import { authActions } from '../../redux/actions/auth.actions'
+import React, { useState } from "react";
+import { Redirect, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { authActions } from "../../redux/actions/auth.actions";
 
 const LoginPage = () => {
-  const dispatch = useDispatch()
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
-  const loading = useSelector((state) => state.auth.loading)
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const loading = useSelector((state) => state.auth.loading);
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
 
   const [errors, setErrors] = useState({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value })
-  }
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const { email, password } = formData
+    const { email, password } = formData;
     if (!email || !password) {
-      setErrors({ ...errors, email: 'Please fill out email', password: 'Please fill out password' })
+      setErrors({
+        ...errors,
+        email: "Please fill out email",
+        password: "Please fill out password",
+      });
       return;
     }
-    dispatch(authActions.loginRequest({ email, password }))
-  }
+    dispatch(authActions.loginRequest({ email, password }));
+  };
 
   //Redirect to homepage whenever user is authenticated
-  if (isAuthenticated) return <Redirect to='/'></Redirect>
+  if (isAuthenticated) return <Redirect to="/"></Redirect>;
 
   return (
-    <Container>
+    <Container className="bg-loggin">
+      <Col className ="col-loggin">
       <Row>
-        <Col md={{ span: 6, offset: 3 }}>
-          <Form onSubmit={handleSubmit}>
-            <div className="text-center mb-3">
-              <h1 className="text-primary">Sign In</h1>
-              <p className="lead">
-                <i className="fas fa-user" /> Sign Into Your Account
-              </p>
-            </div>
+      <h1 className="style-quote">
+        “Traveling – it leaves you speechless, then turns you into a
+        storyteller.”
+      </h1>
+      </Row>
+      <Row>
+        <Form onSubmit={handleSubmit} className="form-loggin">
+          <div className="text-center mb-3">
+            <h1 className="text-primary">Sign In</h1>
+          </div>
+          <div>
             <Form.Group>
               <Form.Control
                 type="email"
@@ -92,18 +100,19 @@ const LoginPage = () => {
                 Loading...
               </Button>
             ) : (
-                <Button className="btn-block" type="submit" variant="primary">
-                  Login
-                </Button>
-              )}
+              <Button className="btn-block" type="submit" variant="success">
+                Login
+              </Button>
+            )}
             <p>
               Don't have an account? <Link to="/register">Sign Up</Link>
             </p>
-          </Form>
-        </Col>
+          </div>
+        </Form>
       </Row>
+      </Col>
     </Container>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
