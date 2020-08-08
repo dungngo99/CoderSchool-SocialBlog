@@ -51,16 +51,16 @@ const RegisterPage = () => {
   if (isAuthenticated) return <Redirect to='/'></Redirect>
 
   return (
-    <Container>
+    <Container className = "bg-resgister">
       <Row>
-        <Col md={{ span: 6, offset: 3 }}>
+        <Col>
           <div className="text-center mb-3">
             <h1 className="text-primary">Sign Up</h1>
             <p className="lead">
               <i className="fas fa-user" /> Create Your Account
             </p>
           </div>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} className="form-loggin">
             <Form.Group>
               <Form.Control
                 type="text"
@@ -123,7 +123,7 @@ const RegisterPage = () => {
                 Loading...
               </Button>
             ) : (
-                <Button className="btn-block" type="submit" variant="primary">
+                <Button className="btn-block" type="submit" variant="success">
                   Register
                 </Button>
               )}
