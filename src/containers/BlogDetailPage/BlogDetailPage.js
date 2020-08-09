@@ -64,16 +64,16 @@ const BlogDetailPage = () => {
       {loading 
       ? (<ClipLoader color="#f86c6b" size={150} loading={loading} />) 
       : (
-          <div>
+          <div className ="position-reaction">
             {blog && (
               <div className="mb-5">
-                <h1>{blog.title}</h1>
+                <h1 className ="style-title-detail">{blog.title}</h1>
                 <span className="text-muted">
-                  @{blog?.user?.name} wrote{" "}
+                  <i>@{blog?.user?.name} wrote{" "}</i>
                   <Moment fromNow>{blog.createdAt}</Moment>
                 </span>
                 <hr />
-                <Markdown source={blog.content} />
+                <Markdown className ="style-content-detail" source={blog.content} />
                 <ReactionList blog={blog} handleReaction={handleReaction} type={'Blog'}></ReactionList>
                 <hr />
                 {/* <ReviewList reviews={blog.reviews} handleReactionReview={handleReactionReview} type={'Review'}/> */}

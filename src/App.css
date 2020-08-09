@@ -35,13 +35,32 @@
   background-size: 100%;
 }
 .bg-home {
+  background-size: 50%;
   background-image: url("https://lh3.googleusercontent.com/proxy/Z6aSeVXz2NmnVICm2-NQ3IpbpGyTzQohAR1F-MJTeCYT5dqAaexSyNLiv1aBekC6VNMrm3thv1h89NE0xxpupBeWowR-02fT-1sw7O9j4yOC2iiqc0vfQFRbq_eYWppzKoY");
 }
 .form-login {
   width: 500px !important;
 }
-
-
+.style-title{
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #095891;
+  text-decoration: underline;
+}
+.style-content{
+  text-align: justify;
+}
+.position-reaction{
+  position: absolute;
+  top: 75px
+}
+.style-content-detail{
+  text-align: justify;
+}
+.style-title-detail{
+  font-size: 45px;
+  color: #004A7F;
+}
 
 .col-login {
   position: absolute;
@@ -80,12 +99,12 @@
 }
 .bg-homemain {
   background-color: rgb(4, 133, 192);
+
 }
 .T-Blog {
-  font-size: 70px;
+  font-size: 80px;
   font-weight: bolder;
-  font-family: "Courier New", Courier, monospace;
-}
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
 .all-home {
   top: 75px;
   position: absolute;
