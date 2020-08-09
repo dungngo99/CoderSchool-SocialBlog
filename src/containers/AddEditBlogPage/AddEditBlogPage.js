@@ -68,7 +68,7 @@ const AddEditBlogPage = () => {
 
 return (
   <div>
-    <Container>
+    <Container className="position-blogadd">
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>
@@ -93,7 +93,7 @@ return (
                   Submitting...
                 </Button>
               ) : (
-                  <Button className="mr-3" type="submit" variant="primary">Submit</Button>
+                  <Button className="mr-3" type="submit" variant="primary">Post</Button>
                 )}
 
               <Button variant="light" onClick={handleCancel} disabled={loading}>Cancel</Button>

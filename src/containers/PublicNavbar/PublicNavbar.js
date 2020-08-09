@@ -42,10 +42,12 @@ const PublicNavbar = () => {
   return (
     <div>
       <Navbar fixed ="top" className="Navbar-style" >
-        <Navbar.Brand as={Link} to="/" className="mr-auto ">
-          <img alt='...'
-            // src="logo.png"
-            // alt="T-Blog"
+        <Navbar.Brand as={Link} to="/" className="mr-auto d-flex align-items-center">
+          <img
+            width="100px"
+            height ="50px"
+            src="https://cdn.discordapp.com/attachments/732068987206107267/741964605080862740/hinh-cut-em.png"
+            alt="T-Blog"
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

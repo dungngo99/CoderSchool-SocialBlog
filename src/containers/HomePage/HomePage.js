@@ -37,7 +37,7 @@ const HomePage = () => {
           <p>Write about your amazing experiences.</p>
           {isAuthenticated && (
             <Link to="/blog/add">
-              <Button variant="warning">Write now</Button>
+              <Button  className ="btn-write-now">Write now</Button>
             </Link>
           )}
         </Jumbotron>

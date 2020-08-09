@@ -9,6 +9,8 @@ const blogsRequest = () => async (dispatch) => {
 
   try {
     const response = await api.get('/blogs');
+    const json = await response.data.data;
+    console.log(json)
     dispatch({ type: types.BLOG_REQUEST_SUCCESS, payload: response.data.data })
   } catch (error) {
     dispatch({ type: types.BLOG_REQUEST_FAILURE, payload: error })
@@ -53,6 +55,7 @@ const createNewBlog = (title, content) => async (dispatch) => {
     formData.append('title', title)
     formData.append('content', content)
     const response = await api.post('/blogs', formData)
+    // console.log("FormDate",await response.json())
 
     dispatch({ type: types.CREATE_BLOG_SUCCESS, payload: response.data.data })
     dispatch(alertActions.setAlert('New blog has been created', "Success"))
