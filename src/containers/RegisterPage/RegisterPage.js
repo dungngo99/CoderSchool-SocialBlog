@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import {Redirect, Link} from 'react-router-dom'
-import {useDispatch, useSelector} from 'react-redux'
-import {authActions} from '../../redux/actions/auth.actions'
-import {Container, Row, Col, Form, Button} from 'react-bootstrap'
+import React, { useState } from "react";
+import { Redirect, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../redux/actions/auth.actions";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 //RegisterPage component
 const RegisterPage = () => {
@@ -23,17 +23,17 @@ const RegisterPage = () => {
 
   //local state: store user's error
   const [errors, setErrors] = useState({
-    name: '',
-    email: '',
-    password: '',
-    password2: '',
-  })
+    name: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
 
   //Function to update values when user is typing
   const handleChange = (event) => {
-    setDataForm({...formData, [event.target.name]: event.target.value})
-    setErrors({...errors, [event.target.name]: ''})
-  }
+    setDataForm({ ...formData, [event.target.name]: event.target.value });
+    setErrors({ ...errors, [event.target.name]: "" });
+  };
 
   //Function to call Middleware and then send action to redux reducer
   const handleSubmit = (event) => {
@@ -83,14 +83,18 @@ const RegisterPage = () => {
   if (isAuthenticated) return <Redirect to='/'></Redirect>
 
   return (
-    <Container className = "bg-resgister">
+    <Container className="bg-resgister">
       <Row>
         <Col>
           <div className="text-center mb-3">
-            <h1 className="text-primary">Sign Up</h1>
-            <p className="lead"><i className="fas fa-user" /> Create Your Account</p>
+            <h1 className="text-primary" style={{ "font-size": "25px" }}>
+              Sign Up
+            </h1>
+            <p className="lead">
+              <i className="fas fa-user" /> Create Your Account
+            </p>
           </div>
-          <Form onSubmit={handleSubmit} className="form-loggin">
+          <Form onSubmit={handleSubmit} className="form-login">
             <Form.Group>
               <Form.Control type="text" placeholder="Name" name="name" value={formData.name} onChange={handleChange}/>
               {errors.name && <small className="form-text text-danger">{errors.name}</small>}
@@ -116,8 +120,10 @@ const RegisterPage = () => {
                 Loading...
               </Button>
             ) : (
-                <Button className="btn-block" type="submit" variant="success">Register</Button>
-              )}
+              <Button className="btn-block" type="submit" variant="success">
+                Register
+              </Button>
+            )}
 
             <Button className="btn-block" type="button" variant="light" onClick={fillFakeData}>
               Fill in fake data
@@ -128,7 +134,7 @@ const RegisterPage = () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;
