@@ -2,6 +2,8 @@ import * as types from '../constants/auth.constants'
 import { alertActions } from "./alert.actions"
 import api from '../api'
 
+//Action include type and payload
+//Middleware: receive parameters from UI -> process it -> send login action to reducer
 const loginRequest = (email, password) => async (dispatch) => {
   dispatch({ type: types.LOGIN_REQUEST, payload: null})
 
@@ -16,6 +18,7 @@ const loginRequest = (email, password) => async (dispatch) => {
   }
 }
 
+//Middleware: receive parameters from UI -> process it -> send register action to reducer
 const registerRequest = (name, email, password) => async (dispatch) => {
   dispatch({type: types.REGISTER_REQUEST, payload: null})
 
@@ -27,6 +30,7 @@ const registerRequest = (name, email, password) => async (dispatch) => {
   }
 }
 
+//Middleware: receive parameters from UI -> process it -> send get-current-user action to reducer
 const getCurrentUser = (accessToken) => async (dispatch) => {
   dispatch({ type: types.GET_CURRENT_USER_REQUEST, payload: null });
   if (accessToken) {
@@ -41,12 +45,14 @@ const getCurrentUser = (accessToken) => async (dispatch) => {
   }
 };
 
+//Middleware: receive parameters from UI -> process it -> send logout action to reducer
 const logout = () => (dispatch) => {
   delete api.defaults.headers.common["authorization"];
   localStorage.setItem("accessToken", "");
   dispatch({ type: types.LOGOUT, payload: null });
 }
 
+//Pack all actions into an object for exporting
 export const authActions = {
   loginRequest,
   registerRequest,

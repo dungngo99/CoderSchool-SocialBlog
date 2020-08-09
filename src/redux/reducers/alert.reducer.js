@@ -1,8 +1,10 @@
 
 import * as types from '../constants/alert.constants'
 
+//Initialize global state (an array)
 const initialState = []
 
+//Reducer: a command center to update global state of alert
 const alertReducer = (state=initialState, action) => {
   const {type, payload} = action
 

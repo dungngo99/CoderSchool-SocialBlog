@@ -1,12 +1,7 @@
 import React from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
-const ReviewBlog = ({
-  reviewText,
-  handleInputChange,
-  handleSubmitReview,
-  loading,
-}) => {
+const ReviewBlog = ({reviewText, handleInputChange, handleSubmitReview, loading}) => {
   return (
     <Form onSubmit={handleSubmitReview}>
       <Form.Group as={Row}>
@@ -14,20 +9,12 @@ const ReviewBlog = ({
           Review:
         </Form.Label>
         <Col sm="8">
-          <Form.Control
-            id="review"
-            type="text"
-            value={reviewText}
-            onChange={handleInputChange}
-          />
+          <Form.Control id="review" type="text" value={reviewText} onChange={handleInputChange}/>
         </Col>
-        {loading ? (
+        {loading 
+        ? (
           <Button variant="primary" type="button" disabled>
-            <span
-              className="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Submitting...
           </Button>
         ) : (

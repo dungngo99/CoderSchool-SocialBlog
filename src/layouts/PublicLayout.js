@@ -16,7 +16,7 @@ const PublicLayout = () => {
     <div>
       <PublicNavbar />
       <Container>
-        <AlertMsg />
+        <AlertMsg/>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginPage} />

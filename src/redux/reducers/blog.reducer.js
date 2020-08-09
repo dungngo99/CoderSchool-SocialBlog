@@ -1,8 +1,12 @@
 import * as types from '../constants/blog.constants'
 
+//Initialize the global state of blog. This state must include every attribute that reducer will use
 const initialState = {
   blogs: [],
   loading: false,
+  selectedBlog: null,
+  submitReviewLoading: false,
+  redirectTo: '',
 }
 
 const blogReducer = (state = initialState, action) => {
@@ -32,21 +36,21 @@ const blogReducer = (state = initialState, action) => {
       return { ...state, submitReviewLoading: false };
 
     case types.CREATE_BLOG_REQUEST:
-      break
+      return state
     case types.CREATE_BLOG_SUCCESS:
-      break
+      return state
     case types.CREATE_BLOG_FAILURE:
-      break
+      return state
 
     case types.UPDATE_BLOG_REQUEST:
-      break
+      return state
     case types.UPDATE_BLOG_SUCCESS:
-      break
+      return state
     case types.UPDATE_BLOG_FAILURE:
-      break
+      return state
 
     case types.DELETE_BLOG_REQUEST:
-      break
+      return state
     case types.DELETE_BLOG_SUCCESS:
       return { ...state, loading: false, selectedBlog: {}, redirectTo: "/" };
     case types.DELETE_BLOG_FAILURE:
