@@ -1,12 +1,16 @@
 import React from 'react'
+import ReactionList from '../components/ReactionList'
 
-const ReviewList = ({ reviews }) => {
+const ReviewList = ({ reviews, handleReactionReview, type }) => {
   return (
     <>
       {reviews?.length > 0 && (
         <ul className="list-unstyled">
           {reviews.map((review) => (
-            <ReviewContent review={review} key={review._id} />
+            <>
+              <ReviewContent review={review} key={review._id} />
+              <ReactionList blog={review} key={`reaction-${review._id}`} handleReaction={handleReactionReview} type={type}></ReactionList>
+            </>
           ))}
         </ul>
       )}

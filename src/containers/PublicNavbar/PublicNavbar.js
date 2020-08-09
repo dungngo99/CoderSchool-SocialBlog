@@ -20,7 +20,7 @@ const PublicNavbar = () => {
       <Nav.Link as={Link} to="/dashboard">
         <i className="fas fa-chart-line" /> Dashboard
       </Nav.Link>
-      <Nav.Link as={Link} onClick={(event) => handleLogout(event)}>
+      <Nav.Link as={Link} to='/' onClick={(event) => handleLogout(event)}>
         <i className="fas fa-sign-out-alt" /> Logout
       </Nav.Link>
     </Nav>
@@ -37,13 +37,13 @@ const PublicNavbar = () => {
     </Nav.Link>
   </Nav>
   </div>
-   
+
   );
   return (
     <div>
       <Navbar fixed ="top" className="Navbar-style" >
         <Navbar.Brand as={Link} to="/" className="mr-auto ">
-          <img
+          <img alt='...'
             // src="logo.png"
             // alt="T-Blog"
           />

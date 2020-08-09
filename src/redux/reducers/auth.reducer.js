@@ -25,6 +25,12 @@ const authReducer = (state = initialState, action) => {
       return {...state, loading: false, isAuthenticated: true}
     case types.REGISTER_REQUEST_FAILURE:
       return {...state, loading: false}
+    case types.GET_CURRENT_USER_REQUEST:
+      return {...state, loading: true}
+    case types.GET_CURRENT_USER_SUCCESS:
+      return {...state, loading: false, isAuthenticated: true, user: payload.data}
+    case types.GET_CURRENT_USER_FAILURE:
+      return {...state, loading: false}
     case types.LOGOUT:
       return {...state, accessToken: null, isAuthenticated: false, user: null, loading: false}
     default:

@@ -8,6 +8,7 @@ import Moment from 'react-moment'
 import Markdown from 'react-markdown'
 import ReviewList from '../../components/ReviewList'
 import ReviewBlog from '../../components/ReviewBlog'
+import ReactionList from '../../components/ReactionList'
 
 //BlogPagedDetail component
 const BlogDetailPage = () => {
@@ -41,6 +42,16 @@ const BlogDetailPage = () => {
     setReviewText("");
   };
 
+  const handleReaction = (type, reaction) => {
+    console.log(blog.id)
+    dispatch(blogActions.updateReaction(type, blog.id, reaction))
+  }
+
+  const handleReactionReview = (type, reaction, review) => {
+    console.log(review._id)
+    dispatch(blogActions.updateReaction(type, review._id, reaction))
+  }
+
   //Function to get a specific blog when there is id in url
   useEffect(() =>{
     if (params?.id){
@@ -63,8 +74,9 @@ const BlogDetailPage = () => {
                 </span>
                 <hr />
                 <Markdown source={blog.content} />
+                <ReactionList blog={blog} handleReaction={handleReaction} type={'Blog'}></ReactionList>
                 <hr />
-                <ReviewList reviews={blog.reviews} />
+                {/* <ReviewList reviews={blog.reviews} handleReactionReview={handleReactionReview} type={'Review'}/> */}
               </div>
             )}
 
