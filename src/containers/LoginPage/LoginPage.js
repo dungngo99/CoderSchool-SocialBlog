@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 import { authActions } from "../../redux/actions/auth.actions";
 
 //LoginPage (statefull component)
@@ -59,7 +59,7 @@ const LoginPage = () => {
   return (
     <Container className="bg-login">
       <div className="col-login">
-        <div class="style-row-quote">
+        <div className="style-row-quote">
           <h1 className="style-quote">
             “Traveling – it leaves you speechless, then turns you into a
             storyteller.”
@@ -68,7 +68,7 @@ const LoginPage = () => {
         <div className="style-form-login">
           <Form onSubmit={handleSubmit} className="form-login">
             <div className="text-center mb-3">
-              <h1 className="text-primary" style={{ "font-size": "25px" }}>
+              <h1 className="text-primary" style={{ "fontSize": "25px" }}>
                 Sign In
               </h1>
             </div>
