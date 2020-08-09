@@ -25,9 +25,10 @@ const LoginPage = () => {
     password: "",
   });
 
-  //Update local state when user is typing
+  //Update local state (formData and errors) when user is typing
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+    setErrors({...errors, [event.target.name]: ''})
   };
 
   //Call Middleware and then send action to redux reducer when user clicks submit
@@ -39,8 +40,12 @@ const LoginPage = () => {
     const { email, password } = formData;
 
     //Set errors if user leaves any input blank
-    if (!email || !password) {
-      setErrors({ ...errors, email: "Please fill out email", password: "Please fill out password" });
+    if (!email) {
+      setErrors({ ...errors, email: "Please fill out email"});
+      return;
+    }
+    if (!password){
+      setErrors({...errors, password: 'Please fill out password'})
       return;
     }
 

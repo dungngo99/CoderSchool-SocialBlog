@@ -1,11 +1,13 @@
 import * as types from '../constants/auth.constants'
 
+//initialize global state for auth. This state must include every attribute that is used for this reducer
 const initialState = {
   user: {},
   isAuthenticated: false,
   loading: false,
 }
 
+//Reducer: command central to update global state of auth
 const authReducer = (state = initialState, action) => {
   const { type, payload } = action
 

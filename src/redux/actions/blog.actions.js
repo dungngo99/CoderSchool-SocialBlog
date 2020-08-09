@@ -2,6 +2,8 @@ import * as types from '../constants/blog.constants'
 import api from '../api'
 import {alertActions} from '../actions/alert.actions'
 
+//Action includes type and payload
+//Middleware: get parameters from UI -> process it -> send blog-request action to reducer
 const blogsRequest = () => async (dispatch) => {
   dispatch({type: types.BLOG_REQUEST, payload: null})
 
@@ -13,6 +15,7 @@ const blogsRequest = () => async (dispatch) => {
   }
 }
 
+//Middleware: get parameters from UI -> process it -> send single-blog-request to reducer
 const getSingleBlog = (blogId) => async (dispatch) => {
   dispatch({ type: types.GET_SINGLE_BLOG_REQUEST, payload: null });
   try {
@@ -26,6 +29,7 @@ const getSingleBlog = (blogId) => async (dispatch) => {
   }
 };
 
+//Middleware: get parameters from UI -> process it -> send create-review-request to reducer
 const createReview = (blogId, reviewText) => async (dispatch) => {
   dispatch({ type: types.CREATE_REVIEW_REQUEST, payload: null });
   try {
@@ -41,10 +45,14 @@ const createReview = (blogId, reviewText) => async (dispatch) => {
   }
 };
 
+//Middleware: get parameters from UI -> process it -> send -create-new-blog action to reducer
 const createNewBlog = (title, content) => async (dispatch) => {
   dispatch({type: types.CREATE_BLOG_REQUEST, payload: null})
   try{
-    const response = await api.post('/blogs', title, content)
+  const formData = new FormData()
+  formData.append('title', title)
+  formData.append('content', content)
+  const response = await api.post('/blogs', formData)
 
     dispatch({type: types.CREATE_BLOG_SUCCESS, payload: response.data.data})
     dispatch(alertActions.setAlert('New blog has been created', "Success"))
@@ -53,10 +61,14 @@ const createNewBlog = (title, content) => async (dispatch) => {
   }
 }
 
+//Middleware: get parameters from UI -> process it -> send update-blog action to reducer
 const updateBlog = (blogId, title, content) => async (dispatch) => {
   dispatch({type: types.UPDATE_BLOG_REQUEST, payload: null})
   try{
-    const response = await api.post(`/blogs/${blogId}`, title, content)
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('content', content)
+    const response = await api.post(`/blogs/${blogId}`, formData)
 
     dispatch({type: types.UPDATE_BLOG_SUCCESS, payload: response.data.data})
     dispatch(alertActions.setAlert('The blog has been updated!', 'success'))
@@ -65,6 +77,7 @@ const updateBlog = (blogId, title, content) => async (dispatch) => {
   }
 }
 
+//Middleware: get parameters from UI -> process it -> send delete-blog action to reducer
 const deleteBlog = (blogId) => async (dispatch) => {
   dispatch({type: types.DELETE_BLOG_REQUEST, payload: null})
   try{
@@ -76,6 +89,7 @@ const deleteBlog = (blogId) => async (dispatch) => {
   }
 }
 
+//Pack all actions into 1 object for exporting
 export const blogActions = {
   blogsRequest,
   getSingleBlog,

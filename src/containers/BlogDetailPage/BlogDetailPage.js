@@ -9,27 +9,39 @@ import Markdown from 'react-markdown'
 import ReviewList from '../../components/ReviewList'
 import ReviewBlog from '../../components/ReviewBlog'
 
+//BlogPagedDetail component
 const BlogDetailPage = () => {
+  //Variable to parse url
   const params = useParams()
-  const dispatch = useDispatch()
-  const [reviewText, setReviewText] = useState("");
 
+  //Dispatch to send action to redux reducer
+  const dispatch = useDispatch()
+
+  //Global state: get from redux store (attribute blog)
   const blog = useSelector((state) => state.blog.selectedBlog)
   const loading = useSelector((state) => state.blog.loading)
   const currentUser = useSelector((state) => state.auth.user)
   const submitReviewLoading = useSelector((state) => state.blog.submitReviewLoading);
+
+  //Global state: get from redux store (attribute auth)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
+  //Local state: store user's input information
+  const [reviewText, setReviewText] = useState("");
+
+  //Update local state with new input when user is typing
   const handleInputChange = (e) => {
     setReviewText(e.target.value);
   };
 
+  //Function to call Middleware action to create new blog and then send action to redux reducer
   const handleSubmitReview = (e) => {
     e.preventDefault();
     dispatch(blogActions.createReview(blog._id, reviewText));
     setReviewText("");
   };
 
+  //Function to get a specific blog when there is id in url
   useEffect(() =>{
     if (params?.id){
       dispatch(blogActions.getSingleBlog(params.id))
@@ -38,10 +50,10 @@ const BlogDetailPage = () => {
 
   return (
     <>
-      {loading ? (
-        <ClipLoader color="#f86c6b" size={150} loading={loading} />
-      ) : (
-          <>
+      {loading 
+      ? (<ClipLoader color="#f86c6b" size={150} loading={loading} />) 
+      : (
+          <div>
             {blog && (
               <div className="mb-5">
                 <h1>{blog.title}</h1>
@@ -75,7 +87,7 @@ const BlogDetailPage = () => {
                 loading={submitReviewLoading}
               />
             )}
-          </>
+          </div>
         )}
     </>
   );

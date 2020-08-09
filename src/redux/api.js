@@ -2,6 +2,7 @@ import axios from 'axios'
 import store from "./store";
 import { alertActions } from "./actions/alert.actions";
 
+//Create a new api object
 const api = axios.create({
   baseURL: 'https://social-api-cs.great.dev/',
   headers: {
@@ -9,6 +10,7 @@ const api = axios.create({
   },
 })
 
+//Send request to api server
 api.interceptors.request.use(
   (request) => {
     console.log('Starting request', request)
@@ -21,6 +23,7 @@ api.interceptors.request.use(
   }
 )
 
+//Get the response and return it
 api.interceptors.response.use(
   (response) => {
     console.log('Response:', response)

@@ -4,6 +4,8 @@ import thunk from 'redux-thunk'
 import combineReducers from './reducers/index'
 
 const initialState = {}
+
+//Central redux store (store auth, blog, and alert sub-states)
 const store = createStore(
   combineReducers, 
   initialState,

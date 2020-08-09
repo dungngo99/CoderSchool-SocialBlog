@@ -10,7 +10,7 @@ export default function Routes() {
     <div>
       <Switch>
         <Route path='/' component={PublicLayout}/>
-        <PrivateRoute exact path='/dashboard' component={DashboardPage} isAuthenticated={true}></PrivateRoute>
+        <PrivateRoute exact path='/dashboard' component={DashboardPage}></PrivateRoute>
         <Route path='*' component={PageNotFound}/>
       </Switch>
     </div>
