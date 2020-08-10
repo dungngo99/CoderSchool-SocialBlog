@@ -56,15 +56,19 @@ const blogReducer = (state = initialState, action) => {
     case types.DELETE_BLOG_FAILURE:
       return { ...state, loading: false };
 
-    case types.UPDATE_REACTION_REQUEST:
+    case types.UPDATE_REACTION_BLOG_REQUEST:
       return {...state}
-    case types.UPDATE_REACTION_SUCCESS:
-      let newReactions = {...state.selectedBlog.reactions, haha: 0, sad: 0, like: 0, love: 0, angry: 0}
-      let num = state.selectedBlog.reactions[payload.data.reaction] === 1 ? 0 : 1
-      newReactions = {...newReactions, [payload.data.reaction]: num}
-      return {...state, selectedBlog: {...state.selectedBlog, reactions: newReactions}}
-    case types.UPDATE_REACTION_FAILURE:
+    case types.UPDATE_REACTION_BLOG_SUCCESS:
+      return {...state, selectedBlog: payload.data}
+    case types.UPDATE_REACTION_BLOG_FAILURE:
       return {...state}
+
+    case types.UPDATE_REACTION_REVIEW_REQUEST:
+      return { ...state }
+    case types.UPDATE_REACTION_REVIEW_SUCCESS:
+      return {...state, selectedBlog: payload.data}
+    case types.UPDATE_REACTION_REVIEW_FAILURE:
+      return { ...state }
 
     default:
       return state

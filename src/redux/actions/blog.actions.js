@@ -64,15 +64,31 @@ const createNewBlog = (title, content) => async (dispatch) => {
   }
 }
 
-const updateReaction = (targetType, target, reaction) => async (dispatch) => {
-  dispatch({type: types.UPDATE_REACTION_REQUEST, payload: null})
+//Middleware: update parameters from UI -> process it -> send update-reaction action to reducer
+const updateReactionBlog = (targetType, target, reaction) => async (dispatch) => {
+  dispatch({type: types.UPDATE_REACTION_BLOG_REQUEST, payload: null})
   try{
-    const response = await api.post('/reaction', {targetType, target, reaction})
-    dispatch({type: types.UPDATE_REACTION_SUCCESS, payload: response.data})
+    await api.post('/reaction', {targetType, target, reaction})
+    const response = await api.get(`/blogs/${target}`)
+
+    dispatch({type: types.UPDATE_REACTION_BLOG_SUCCESS, payload: response.data})
   }catch(error){
-    dispatch({type: types.UPDATE_REACTION_FAILURE, payload: error})
+    dispatch({type: types.UPDATE_REACTION_BLOG_FAILURE, payload: error})
   }
 }
+
+//Middleware: update parameters from UI -> process it -> send update-reaction action to reducer
+const updateReactionReview = (targetType, target, reaction, blogId) => async (dispatch) => {
+  dispatch({ type: types.UPDATE_REACTION_REVIEW_REQUEST, payload: null })
+  try {
+    await api.post('/reaction', { targetType, target, reaction })
+    const response = await api.get(`/blogs/${blogId}`)
+    dispatch({ type: types.UPDATE_REACTION_REVIEW_SUCCESS, payload: response.data })
+  } catch (error) {
+    dispatch({ type: types.UPDATE_REACTION_REVIEW_FAILURE, payload: error })
+  }
+}
+
 
 //Middleware: get parameters from UI -> process it -> send update-blog action to reducer
 const updateBlog = (blogId, title, content) => async (dispatch) => {
@@ -110,5 +126,6 @@ export const blogActions = {
   createNewBlog,
   updateBlog,
   deleteBlog,
-  updateReaction,
+  updateReactionBlog,
+  updateReactionReview,
 }

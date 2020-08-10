@@ -11,6 +11,9 @@ const loginRequest = (email, password) => async (dispatch) => {
     let response = await api.post('/auth/login', email, password)
     dispatch({type: types.LOGIN_REQUEST_SUCCESS, payload: response.data})
 
+    //After every time a user logined successfully, we need to add accessToken for later access to API
+    api.defaults.headers.common["authorization"] = "Bearer " + response.data.accessToken;
+
     const name = response.data.data.name;
     dispatch(alertActions.setAlert(`Welcome back, ${name}`, "success"));
   }catch(error){

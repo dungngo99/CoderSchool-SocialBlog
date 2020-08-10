@@ -6,10 +6,10 @@ const ReviewList = ({ reviews, handleReactionReview, type }) => {
     <>
       {reviews?.length > 0 && (
         <ul className="list-unstyled">
-          {reviews.map((review) => (
+          {reviews.map((review, index) => (
             <>
-              <ReviewContent review={review} key={review._id} />
-              <ReactionList blog={review} key={`reaction-${review._id}`} handleReaction={handleReactionReview} type={type}></ReactionList>
+              <ReviewContent review={review} key={`${index}-${type}-${review._id}`} />
+              <ReactionList load={review} key={`${type}-${review._id}`} handleReaction={handleReactionReview} type={type}></ReactionList>
             </>
           ))}
         </ul>
@@ -20,7 +20,7 @@ const ReviewList = ({ reviews, handleReactionReview, type }) => {
 
 const ReviewContent = ({ review }) => {
   return (
-    <div>
+    <div key={`${review._id}`}>
       <span className="text-muted">@{review?.user?.name}: </span>
       <span> {review.content} </span>
     </div>
