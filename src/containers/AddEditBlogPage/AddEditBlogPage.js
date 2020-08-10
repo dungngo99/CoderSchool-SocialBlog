@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Button, Form, Col, Row, Container, ButtonGroup } from 'react-bootstrap'
-import { useHistory, useParams, Redirect } from 'react-router-dom'
-import { blogActions } from '../../redux/actions/blog.actions'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Button,
+  Form,
+  Col,
+  Row,
+  Container,
+  ButtonGroup,
+} from "react-bootstrap";
+import { useHistory, useParams, Redirect } from "react-router-dom";
+import { blogActions } from "../../redux/actions/blog.actions";
 
 const AddEditBlogPage = () => {
   //Local state: store user's input
@@ -13,19 +20,19 @@ const AddEditBlogPage = () => {
   })
 
   //Global state: get from redux store (attribute blog)
-  const loading = useSelector((state) => state.blog.loading)
-  const selectedBlog = useSelector((state) => state.blog.selectedBlog)
-  const redirectTo = useSelector((state) => state.blog.redirectTo)
+  const loading = useSelector((state) => state.blog.loading);
+  const selectedBlog = useSelector((state) => state.blog.selectedBlog);
+  const redirectTo = useSelector((state) => state.blog.redirectTo);
 
   //Dispatch to send action to redux reducer
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //History to redirect to next or previous page
-  const history = useHistory()
+  const history = useHistory();
 
   //Params to parse the url
-  const params = useParams()
-  const addOrEdit = params.id ? 'Edit' : 'Add'
+  const params = useParams();
+  const addOrEdit = params.id ? "Edit" : "Add";
 
   // console.log(selectedBlog)
 
@@ -39,7 +46,7 @@ const AddEditBlogPage = () => {
         images: selectedBlog.images,
       }))
     }
-  }, [addOrEdit, selectedBlog])
+  }, [addOrEdit, selectedBlog]);
 
   //Update user's input when user is typing
   const handleChange = (e) => {
@@ -49,11 +56,11 @@ const AddEditBlogPage = () => {
     setFormData({...formData, [e.target.name]: e.target.value})
     }
   }
-
+  
   //Function to call Middleware and then send action to redux reducer
   const handleSubmit = (e) => {
     //Prevent the page from reloading
-    e.preventDefault()
+    e.preventDefault();
 
     //Get user's input
     const {title, content, images} = formData
@@ -65,12 +72,12 @@ const AddEditBlogPage = () => {
     }else{
       dispatch(blogActions.updateBlog(selectedBlog._id, title, content, images))
     }
-  }
+  };
 
   //Function to go back a previous page
   const handleCancel = () => {
-    history.goBack()
-  }
+    history.goBack();
+  };
 
   //Function to delete a blog
   const handleDelete = () => {
@@ -118,14 +125,25 @@ return (
             {addOrEdit === "Edit" && (
               <ButtonGroup className="d-flex">
                 <Button variant="danger" onClick={handleDelete} disabled={loading}>Delete Blog</Button>
+              
               </ButtonGroup>
-            )}
-          </Form>
-        </Col>
-      </Row>
-    </Container>
-  </div>
-)
-}
+              {addOrEdit === "Edit" && (
+                <ButtonGroup className="d-flex">
+                  <Button
+                    variant="danger"
+                    onClick={handleDelete}
+                    disabled={loading}
+                  >
+                    Delete Blog
+                  </Button>
+                </ButtonGroup>
+              )}
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+};
 
-export default AddEditBlogPage
+export default AddEditBlogPage;
