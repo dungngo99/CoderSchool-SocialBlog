@@ -69,6 +69,13 @@ const blogReducer = (state = initialState, action) => {
     case types.UPDATE_REACTION_REVIEW_FAILURE:
       return { ...state }
 
+    case types.ADD_IMAGE_REQUEST:
+      return {...state}
+    case types.ADD_IMAGE_SUCCESS:
+      return {...state, selectedBlog: payload.data}
+    case types.ADD_IMAGE_FAILURE:
+      return {...state}
+
     default:
       return state
   }
