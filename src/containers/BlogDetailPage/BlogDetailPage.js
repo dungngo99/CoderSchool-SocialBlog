@@ -42,14 +42,14 @@ const BlogDetailPage = () => {
     setReviewText("");
   };
 
-  const handleReaction = (type, reaction) => {
-    console.log(blog.id)
-    dispatch(blogActions.updateReaction(type, blog.id, reaction))
+  //Function to call Middleware action to update blog reaction and then send action to redux reducer
+  const handleReactionBlog = (type, reaction, blog) => {
+    dispatch(blogActions.updateReactionBlog(type, blog.id, reaction))
   }
 
+  //Function to call Middleware action to update review reaction and then send action to redux reducer
   const handleReactionReview = (type, reaction, review) => {
-    console.log(review._id)
-    dispatch(blogActions.updateReaction(type, review._id, reaction))
+    dispatch(blogActions.updateReactionReview(type, review._id, reaction, blog.id))
   }
 
   //Function to get a specific blog when there is id in url
@@ -74,9 +74,9 @@ const BlogDetailPage = () => {
                 </span>
                 <hr />
                 <Markdown className ="style-content-detail" source={blog.content} />
-                <ReactionList blog={blog} handleReaction={handleReaction} type={'Blog'}></ReactionList>
+                <ReactionList load={blog} handleReaction={handleReactionBlog} type={'Blog'}></ReactionList>
                 <hr />
-                {/* <ReviewList reviews={blog.reviews} handleReactionReview={handleReactionReview} type={'Review'}/> */}
+                <ReviewList reviews={blog.reviews} handleReactionReview={handleReactionReview} type={'Review'}/>
               </div>
             )}
 
