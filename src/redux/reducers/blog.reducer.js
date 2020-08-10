@@ -7,6 +7,7 @@ const initialState = {
   selectedBlog: null,
   submitReviewLoading: false,
   redirectTo: '',
+  allUsers: ''
 }
 
 const blogReducer = (state = initialState, action) => {
@@ -19,7 +20,7 @@ const blogReducer = (state = initialState, action) => {
       return { ...state, blogs: payload, loading: false }
     case types.BLOG_REQUEST_FAILURE:
       return { ...state, loading: false }
-  
+
     case types.GET_SINGLE_BLOG_REQUEST:
       return { ...state, loading: true };
     case types.GET_SINGLE_BLOG_REQUEST_SUCCESS:
@@ -30,23 +31,23 @@ const blogReducer = (state = initialState, action) => {
     case types.CREATE_REVIEW_REQUEST:
       return { ...state, submitReviewLoading: true };
     case types.CREATE_REVIEW_SUCCESS:
-      return { ...state, submitReviewLoading: false, selectedBlog: payload};
+      return { ...state, submitReviewLoading: false, selectedBlog: payload };
     case types.CREATE_REVIEW_FAILURE:
       return { ...state, submitReviewLoading: false };
 
     case types.CREATE_BLOG_REQUEST:
-      return state
+      return { ...state, loading: true }
     case types.CREATE_BLOG_SUCCESS:
-      return state
+      return { ...state, loading: false }
     case types.CREATE_BLOG_FAILURE:
-      return state
+      return { ...state, loading: false }
 
     case types.UPDATE_BLOG_REQUEST:
-      return state
+      return { ...state, loading: true }
     case types.UPDATE_BLOG_SUCCESS:
-      return state
+      return { ...state, loading: false, selectedBlog: payload }
     case types.UPDATE_BLOG_FAILURE:
-      return state
+      return { ...state, loadind: false }
 
     case types.DELETE_BLOG_REQUEST:
       return state
@@ -56,17 +57,31 @@ const blogReducer = (state = initialState, action) => {
       return { ...state, loading: false };
 
     case types.UPDATE_REACTION_BLOG_REQUEST:
-      return {...state}
+      return { ...state }
     case types.UPDATE_REACTION_BLOG_SUCCESS:
-      return {...state, selectedBlog: payload.data}
+      return { ...state, selectedBlog: payload.data }
     case types.UPDATE_REACTION_BLOG_FAILURE:
-      return {...state}
+      return { ...state }
 
     case types.UPDATE_REACTION_REVIEW_REQUEST:
       return { ...state }
     case types.UPDATE_REACTION_REVIEW_SUCCESS:
-      return {...state, selectedBlog: payload.data}
+      return { ...state, selectedBlog: payload.data }
     case types.UPDATE_REACTION_REVIEW_FAILURE:
+      return { ...state }
+
+    case types.ADD_IMAGE_REQUEST:
+      return { ...state }
+    case types.ADD_IMAGE_SUCCESS:
+      return { ...state, selectedBlog: payload.data }
+    case types.ADD_IMAGE_FAILURE:
+      return { ...state }
+
+    case types.GET_USERS_REQUEST:
+      return { ...state }
+    case types.GET_USERS_SUCCESS:
+      return { ...state, allUsers: payload.data }
+    case types.GET_USERS_FAILURE:
       return { ...state }
 
     default:

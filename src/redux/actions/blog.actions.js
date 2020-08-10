@@ -45,14 +45,15 @@ const createReview = (blogId, reviewText) => async (dispatch) => {
 };
 
 //Middleware: get parameters from UI -> process it -> send -create-new-blog action to reducer
-const createNewBlog = (title, content) => async (dispatch) => {
-  dispatch({ type: types.CREATE_BLOG_REQUEST, payload: null });
+const createNewBlog = (title, content, images) => async (dispatch) => {
+  dispatch({ type: types.CREATE_BLOG_REQUEST, payload: null })
   try {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    const response = await api.post("/blogs", formData);
-    // console.log("FormDate",await response.json())
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('content', content)
+    for(let i=0; i<images.length; i++) formData.append('imagesUpload', images[i])
+
+    const response = await api.post('/blogs', formData)
 
     dispatch({ type: types.CREATE_BLOG_SUCCESS, payload: response.data.data });
     dispatch(alertActions.setAlert("New blog has been created", "Success"));
@@ -97,13 +98,14 @@ const updateReactionReview = (targetType, target, reaction, blogId) => async (
 };
 
 //Middleware: get parameters from UI -> process it -> send update-blog action to reducer
-const updateBlog = (blogId, title, content) => async (dispatch) => {
-  dispatch({ type: types.UPDATE_BLOG_REQUEST, payload: null });
+const updateBlog = (blogId, title, content, images) => async (dispatch) => {
+  dispatch({ type: types.UPDATE_BLOG_REQUEST, payload: null })
   try {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    const response = await api.put(`/blogs/${blogId}`, formData);
+    const formData = new FormData()
+    for (let i=0; i< images.length; i++) formData.append('imagesUpload', images[i]) 
+
+    await api.post(`/blogs/${blogId}/images`, formData)
+    const response = await api.put(`/blogs/${blogId}`, {title: title, content: content})
 
     dispatch({ type: types.UPDATE_BLOG_SUCCESS, payload: response.data.data });
     dispatch(alertActions.setAlert("The blog has been updated!", "success"));
@@ -124,6 +126,17 @@ const deleteBlog = (blogId) => async (dispatch) => {
   }
 };
 
+//Middleware: get parameters from UI -> process it -> send get-all-users action to reducer
+const getUsers = () => async (dispatch) => {
+  dispatch({type: types.GET_USERS_REQUEST, payload: null})
+  try{
+    let response = await api.get('/users/all?limit=20&page=1')
+    dispatch({type: types.GET_USERS_SUCCESS, payload: response.data})
+  }catch(error){
+    dispatch({type: types.GET_USERS_FAILURE, payload: error})
+  }
+}
+
 //Pack all actions into 1 object for exporting
 export const blogActions = {
   blogsRequest,
@@ -134,4 +147,5 @@ export const blogActions = {
   deleteBlog,
   updateReactionBlog,
   updateReactionReview,
-};
+  getUsers,
+}

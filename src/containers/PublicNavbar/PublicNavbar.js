@@ -20,6 +20,9 @@ const PublicNavbar = () => {
       <Nav.Link as={Link} to="/dashboard">
         <i className="fas fa-chart-line" /> Dashboard
       </Nav.Link>
+      <Nav.Link as={Link} to='/'>
+        <i className="fas fa-sign-out-alt" /> Homepage
+      </Nav.Link>
       <Nav.Link as={Link} to='/' onClick={(event) => handleLogout(event)}>
         <i className="fas fa-sign-out-alt" /> Logout
       </Nav.Link>
