@@ -18,7 +18,6 @@ const blogReducer = (state = initialState, action) => {
     case types.BLOG_REQUEST_SUCCESS:
       return { ...state, blogs: payload, loading: false }
     case types.BLOG_REQUEST_FAILURE:
-      console.log(payload)
       return { ...state, loading: false }
   
     case types.GET_SINGLE_BLOG_REQUEST:
@@ -31,7 +30,7 @@ const blogReducer = (state = initialState, action) => {
     case types.CREATE_REVIEW_REQUEST:
       return { ...state, submitReviewLoading: true };
     case types.CREATE_REVIEW_SUCCESS:
-      return {...state, submitReviewLoading: false, selectedBlog: {...state.selectedBlog, reviews: [...state.selectedBlog.reviews, payload]}};
+      return { ...state, submitReviewLoading: false, selectedBlog: payload};
     case types.CREATE_REVIEW_FAILURE:
       return { ...state, submitReviewLoading: false };
 

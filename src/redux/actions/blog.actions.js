@@ -9,8 +9,6 @@ const blogsRequest = () => async (dispatch) => {
 
   try {
     const response = await api.get('/blogs');
-    const json = await response.data.data;
-    console.log(json)
     dispatch({ type: types.BLOG_REQUEST_SUCCESS, payload: response.data.data })
   } catch (error) {
     dispatch({ type: types.BLOG_REQUEST_FAILURE, payload: error })
@@ -35,9 +33,8 @@ const getSingleBlog = (blogId) => async (dispatch) => {
 const createReview = (blogId, reviewText) => async (dispatch) => {
   dispatch({ type: types.CREATE_REVIEW_REQUEST, payload: null });
   try {
-    const res = await api.post(`/blogs/${blogId}/reviews`, {
-      content: reviewText,
-    });
+    await api.post(`/blogs/${blogId}/reviews`, {content: reviewText,});
+    const res = await api.get(`/blogs/${blogId}`)
     dispatch({
       type: types.CREATE_REVIEW_SUCCESS,
       payload: res.data.data,
@@ -88,7 +85,6 @@ const updateReactionReview = (targetType, target, reaction, blogId) => async (di
     dispatch({ type: types.UPDATE_REACTION_REVIEW_FAILURE, payload: error })
   }
 }
-
 
 //Middleware: get parameters from UI -> process it -> send update-blog action to reducer
 const updateBlog = (blogId, title, content) => async (dispatch) => {
