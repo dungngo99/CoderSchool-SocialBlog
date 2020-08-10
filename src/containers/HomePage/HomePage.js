@@ -13,7 +13,7 @@ const HomePage = () => {
   const blogs = useSelector((state) => state.blog.blogs);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [pageNum, setPageNum] = useState(1);
-  const [totalPageNum, setTotalPageNum] = useState(9);
+  const [totalPageNum] = useState(9);
 
   //Dispatch to send actions to redux reducer
   const dispatch = useDispatch();
