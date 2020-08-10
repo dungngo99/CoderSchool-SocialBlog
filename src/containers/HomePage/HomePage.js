@@ -11,7 +11,6 @@ const HomePage = () => {
   const loading = useSelector((state) => state.loading);
   const blogs = useSelector((state) => state.blog.blogs);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log(isAuthenticated)
 
   //Dispatch to send actions to redux reducer
   const dispatch = useDispatch();
