@@ -9,6 +9,7 @@ const AddEditBlogPage = () => {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
+    img: '',
   })
 
   //Global state: get from redux store (attribute blog)
@@ -26,15 +27,22 @@ const AddEditBlogPage = () => {
   const params = useParams()
   const addOrEdit = params.id ? 'Edit' : 'Add'
 
+  console.log(selectedBlog)
+
   // Update loval state when a specific blog is changed or action (edit or add) is changed
   useEffect(() => {
     if (addOrEdit === 'Edit') {
-      setFormData((formData) => ({...formData, title: selectedBlog.title, content: selectedBlog.content}))
+      setFormData((formData) => ({
+        ...formData, 
+        title: selectedBlog.title, 
+        content: selectedBlog.content
+      }))
     }
   }, [addOrEdit, selectedBlog])
 
   //Update user's input when user is typing
   const handleChange = (e) => {
+    console.log(e.target.value)
     setFormData({...formData, [e.target.name]: e.target.value})
   }
 
@@ -44,13 +52,14 @@ const AddEditBlogPage = () => {
     e.preventDefault()
 
     //Get user's input
-    const {title, content} = formData
+    const {title, content, img} = formData
 
     //Call Middleware and then send action to redux reducers
     if (addOrEdit === 'Add'){
       dispatch(blogActions.createNewBlog(title, content))
     }else{
       dispatch(blogActions.updateBlog(selectedBlog._id, title, content))
+      // dispatch(blogActions.addImage(selectedBlog._id, img))
     }
   }
 
@@ -86,6 +95,10 @@ return (
               <Form.Control as="textarea" rows="10" placeholder="Content" name="content" value={formData.content} onChange={handleChange}/>
             </Form.Group>
 
+            {addOrEdit === 'Edit' && <Form.Group>
+              <Form.Control type="text" rows="10" placeholder="Image url" name="img" onChange={handleChange} />
+            </Form.Group>}
+
             <ButtonGroup className="d-flex mb-3">
               {loading ? (
                 <Button className="mr-3" variant="primary" type="button" disabled>
@@ -95,9 +108,9 @@ return (
               ) : (
                   <Button className="mr-3" type="submit" variant="primary">Post</Button>
                 )}
-
               <Button variant="light" onClick={handleCancel} disabled={loading}>Cancel</Button>
             </ButtonGroup>
+
             {addOrEdit === "Edit" && (
               <ButtonGroup className="d-flex">
                 <Button variant="danger" onClick={handleDelete} disabled={loading}>Delete Blog</Button>

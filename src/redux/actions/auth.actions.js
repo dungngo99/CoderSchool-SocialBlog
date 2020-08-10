@@ -37,7 +37,6 @@ const registerRequest = (name, email, password) => async (dispatch) => {
 const getCurrentUser = (accessToken) => async (dispatch) => {
   dispatch({ type: types.GET_CURRENT_USER_REQUEST, payload: null });
   if (accessToken) {
-    console.log(accessToken)
     const bearerToken = "Bearer " + accessToken;
     api.defaults.headers.common["authorization"] = bearerToken;
   }

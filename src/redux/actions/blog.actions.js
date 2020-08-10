@@ -102,6 +102,24 @@ const updateBlog = (blogId, title, content) => async (dispatch) => {
   }
 }
 
+//Middleware: get the parameters from UI -> process it -> send add-image to reducer
+const addImage = (blogId, imageArr) => async (dispatch) => {
+  dispatch({type: types.ADD_IMAGE_REQUEST, payload: null})
+  console.log(blogId, imageArr)
+  try{
+    let formData = new FormData()
+    formData.append('imagesUpload', imageArr)
+
+    await api.post(`/blogs/${blogId}`, formData)
+    // const response = await api.get(`/blogs/${blogId}`)
+
+    // dispatch({type: types.ADD_IMAGE_SUCCESS, payload: response.data})
+    dispatch(alertActions.setAlert('New image has been added', "Success"))
+  }catch(error){
+    dispatch({type: types.ADD_IMAGE_FAILURE, payload: error})
+  }
+}
+
 //Middleware: get parameters from UI -> process it -> send delete-blog action to reducer
 const deleteBlog = (blogId) => async (dispatch) => {
   dispatch({ type: types.DELETE_BLOG_REQUEST, payload: null })
@@ -124,4 +142,5 @@ export const blogActions = {
   deleteBlog,
   updateReactionBlog,
   updateReactionReview,
+  addImage,
 }

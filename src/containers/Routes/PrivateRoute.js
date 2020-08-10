@@ -6,7 +6,6 @@ import {useSelector} from 'react-redux'
 export default function PrivateRoute({path, component}) {
   //Get the global state "authentication" from redux store
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
-  console.log(isAuthenticated)
 
   //If user is authenticated, it can accces a page with rest.component
   if (isAuthenticated) return <Route exact path={path} component={component}></Route>
