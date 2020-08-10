@@ -14,7 +14,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (request) => {
     // console.log('Starting request', request)
-    return request
+    return request;
   },
   function (error) {
     console.log("Request error", error);
@@ -27,7 +27,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => {
     // console.log('Response:', response)
-    return response
+    return response;
   },
   function (error) {
     error = error.response.data;
