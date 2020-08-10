@@ -45,14 +45,15 @@ const createReview = (blogId, reviewText) => async (dispatch) => {
 };
 
 //Middleware: get parameters from UI -> process it -> send -create-new-blog action to reducer
-const createNewBlog = (title, content) => async (dispatch) => {
+const createNewBlog = (title, content, images) => async (dispatch) => {
   dispatch({ type: types.CREATE_BLOG_REQUEST, payload: null })
   try {
     const formData = new FormData()
     formData.append('title', title)
     formData.append('content', content)
+    for(let i=0; i<images.length; i++) formData.append('imagesUpload', images[i])
+
     const response = await api.post('/blogs', formData)
-    // console.log("FormDate",await response.json())
 
     dispatch({ type: types.CREATE_BLOG_SUCCESS, payload: response.data.data })
     dispatch(alertActions.setAlert('New blog has been created', "Success"))
@@ -87,36 +88,19 @@ const updateReactionReview = (targetType, target, reaction, blogId) => async (di
 }
 
 //Middleware: get parameters from UI -> process it -> send update-blog action to reducer
-const updateBlog = (blogId, title, content) => async (dispatch) => {
+const updateBlog = (blogId, title, content, images) => async (dispatch) => {
   dispatch({ type: types.UPDATE_BLOG_REQUEST, payload: null })
   try {
     const formData = new FormData()
-    formData.append('title', title)
-    formData.append('content', content)
-    const response = await api.put(`/blogs/${blogId}`, formData)
+    for (let i=0; i< images.length; i++) formData.append('imagesUpload', images[i]) 
+
+    await api.post(`/blogs/${blogId}/images`, formData)
+    const response = await api.put(`/blogs/${blogId}`, {title: title, content: content})
 
     dispatch({ type: types.UPDATE_BLOG_SUCCESS, payload: response.data.data })
     dispatch(alertActions.setAlert('The blog has been updated!', 'success'))
   } catch (error) {
     dispatch({ type: types.UPDATE_BLOG_FAILURE, payload: error })
-  }
-}
-
-//Middleware: get the parameters from UI -> process it -> send add-image to reducer
-const addImage = (blogId, imageArr) => async (dispatch) => {
-  dispatch({type: types.ADD_IMAGE_REQUEST, payload: null})
-  console.log(blogId, imageArr)
-  try{
-    let formData = new FormData()
-    formData.append('imagesUpload', imageArr)
-
-    await api.post(`/blogs/${blogId}`, formData)
-    // const response = await api.get(`/blogs/${blogId}`)
-
-    // dispatch({type: types.ADD_IMAGE_SUCCESS, payload: response.data})
-    dispatch(alertActions.setAlert('New image has been added', "Success"))
-  }catch(error){
-    dispatch({type: types.ADD_IMAGE_FAILURE, payload: error})
   }
 }
 
@@ -132,6 +116,17 @@ const deleteBlog = (blogId) => async (dispatch) => {
   }
 }
 
+//Middleware: get parameters from UI -> process it -> send get-all-users action to reducer
+const getUsers = () => async (dispatch) => {
+  dispatch({type: types.GET_USERS_REQUEST, payload: null})
+  try{
+    let response = await api.get('/users/all?limit=20&page=1')
+    dispatch({type: types.GET_USERS_SUCCESS, payload: response.data})
+  }catch(error){
+    dispatch({type: types.GET_USERS_FAILURE, payload: error})
+  }
+}
+
 //Pack all actions into 1 object for exporting
 export const blogActions = {
   blogsRequest,
@@ -142,5 +137,5 @@ export const blogActions = {
   deleteBlog,
   updateReactionBlog,
   updateReactionReview,
-  addImage,
+  getUsers,
 }

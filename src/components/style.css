@@ -1,0 +1,24 @@
+.image-selectedBlog{
+  margin: 10px;
+  transition: 0.5s ease;
+}
+
+.image-selectedBlog:hover{
+  transform: scale(1.1)
+}
+
+.users-card{
+  display: flex;
+}
+
+.user-card{
+  width: 50px !important;
+  margin: 10px;
+  display: flex;
+}
+
+.user-image{
+  width: 70px;
+  height: 60px;
+  margin-right: 10px;
+}

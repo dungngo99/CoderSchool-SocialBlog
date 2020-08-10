@@ -9,6 +9,8 @@ import Markdown from 'react-markdown'
 import ReviewList from '../../components/ReviewList'
 import ReviewBlog from '../../components/ReviewBlog'
 import ReactionList from '../../components/ReactionList'
+import ImageList from '../../components/ImageList'
+import UsersList from '../../components/UsersList'
 
 //BlogPagedDetail component
 const BlogDetailPage = () => {
@@ -23,6 +25,9 @@ const BlogDetailPage = () => {
   const loading = useSelector((state) => state.blog.loading)
   const currentUser = useSelector((state) => state.auth.user)
   const submitReviewLoading = useSelector((state) => state.blog.submitReviewLoading);
+  const users = useSelector((state) => state.blog.allUsers)
+
+  console.log(users)
 
   //Global state: get from redux store (attribute auth)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
@@ -56,6 +61,7 @@ const BlogDetailPage = () => {
   useEffect(() =>{
     if (params?.id){
       dispatch(blogActions.getSingleBlog(params.id))
+      dispatch(blogActions.getUsers())
     }
   }, [dispatch, params])
 
@@ -72,6 +78,8 @@ const BlogDetailPage = () => {
                   <i>@{blog?.user?.name} wrote{" "}</i>
                   <Moment fromNow>{blog.createdAt}</Moment>
                 </span>
+                <hr/>
+                <ImageList images={blog.images}></ImageList>
                 <hr />
                 <Markdown className ="style-content-detail" source={blog.content} />
                 <ReactionList load={blog} handleReaction={handleReactionBlog} type={'Blog'}></ReactionList>
@@ -99,6 +107,8 @@ const BlogDetailPage = () => {
                 loading={submitReviewLoading}
               />
             )}
+
+            {users && <UsersList users={users}></UsersList>}
           </div>
         )}
     </>
