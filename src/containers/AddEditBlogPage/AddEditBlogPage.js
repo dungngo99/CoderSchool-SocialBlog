@@ -125,19 +125,14 @@ return (
             {addOrEdit === "Edit" && (
               <ButtonGroup className="d-flex">
                 <Button variant="danger" onClick={handleDelete} disabled={loading}>Delete Blog</Button>
-              
+                {addOrEdit === "Edit" && (
+                  <ButtonGroup className="d-flex">
+                    <Button variant="danger" onClick={handleDelete} disabled={loading}>Delete Blog</Button>
+                  </ButtonGroup>
+                )}
               </ButtonGroup>
-              {addOrEdit === "Edit" && (
-                <ButtonGroup className="d-flex">
-                  <Button
-                    variant="danger"
-                    onClick={handleDelete}
-                    disabled={loading}
-                  >
-                    Delete Blog
-                  </Button>
-                </ButtonGroup>
-              )}
+
+            )}
             </Form>
           </Col>
         </Row>
