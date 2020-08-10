@@ -36,7 +36,8 @@
 }
 .bg-home {
   background-size: 50%;
-  background-image: url("https://lh3.googleusercontent.com/proxy/Z6aSeVXz2NmnVICm2-NQ3IpbpGyTzQohAR1F-MJTeCYT5dqAaexSyNLiv1aBekC6VNMrm3thv1h89NE0xxpupBeWowR-02fT-1sw7O9j4yOC2iiqc0vfQFRbq_eYWppzKoY");
+  background-image: url("https://lh3.googleusercontent.com/proxy/jw53HEmskkkps_J3ZAeuXZ0mcqJBXFhGJiCg56zvhwY9vJHeqTd5r9j1V0qyQdQIZKxZWfFj7mSzcu2Osh5C5zQny6CDhqDruK85CupxqHC1MOqlxgSluoeqXwRtbg");
+  /* background-image:url("https://lh3.googleusercontent.com/proxy/Z6aSeVXz2NmnVICm2-NQ3IpbpGyTzQohAR1F-MJTeCYT5dqAaexSyNLiv1aBekC6VNMrm3thv1h89NE0xxpupBeWowR-02fT-1sw7O9j4yOC2iiqc0vfQFRbq_eYWppzKoY"); */
 }
 .form-login {
   width: 500px !important;
@@ -105,6 +106,7 @@
   font-size: 80px;
   font-weight: bolder;
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
+
 .all-home {
   top: 75px;
   position: absolute;
