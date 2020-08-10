@@ -9,7 +9,7 @@ const AddEditBlogPage = () => {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
-    img: '',
+    images: '',
   })
 
   //Global state: get from redux store (attribute blog)
@@ -27,7 +27,7 @@ const AddEditBlogPage = () => {
   const params = useParams()
   const addOrEdit = params.id ? 'Edit' : 'Add'
 
-  console.log(selectedBlog)
+  // console.log(selectedBlog)
 
   // Update loval state when a specific blog is changed or action (edit or add) is changed
   useEffect(() => {
@@ -35,15 +35,19 @@ const AddEditBlogPage = () => {
       setFormData((formData) => ({
         ...formData, 
         title: selectedBlog.title, 
-        content: selectedBlog.content
+        content: selectedBlog.content,
+        images: selectedBlog.images,
       }))
     }
   }, [addOrEdit, selectedBlog])
 
   //Update user's input when user is typing
   const handleChange = (e) => {
-    console.log(e.target.value)
+    if (e.target.name === 'images'){
+      setFormData({...formData, [e.target.name]: e.target.files})
+    }else{
     setFormData({...formData, [e.target.name]: e.target.value})
+    }
   }
 
   //Function to call Middleware and then send action to redux reducer
@@ -52,14 +56,14 @@ const AddEditBlogPage = () => {
     e.preventDefault()
 
     //Get user's input
-    const {title, content, img} = formData
+    const {title, content, images} = formData
+    console.log(images)
 
     //Call Middleware and then send action to redux reducers
     if (addOrEdit === 'Add'){
-      dispatch(blogActions.createNewBlog(title, content))
+      dispatch(blogActions.createNewBlog(title, content, images))
     }else{
-      dispatch(blogActions.updateBlog(selectedBlog._id, title, content))
-      // dispatch(blogActions.addImage(selectedBlog._id, img))
+      dispatch(blogActions.updateBlog(selectedBlog._id, title, content, images))
     }
   }
 
@@ -95,8 +99,8 @@ return (
               <Form.Control as="textarea" rows="10" placeholder="Content" name="content" value={formData.content} onChange={handleChange}/>
             </Form.Group>
 
-            {addOrEdit === 'Edit' && <Form.Group>
-              <Form.Control type="text" rows="10" placeholder="Image url" name="img" onChange={handleChange} />
+            {<Form.Group>
+              <Form.Control type='file' multiple accept='image/png image/jpeg image/jpg' name="images" onChange={handleChange} />
             </Form.Group>}
 
             <ButtonGroup className="d-flex mb-3">
